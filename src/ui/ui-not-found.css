@@ -1,0 +1,42 @@
+.ui-not-found {
+  text-align: center;
+  padding: 56px 0 72px;
+}
+
+.ui-not-found h1 {
+  font-size: 56px;
+  line-height: 1;
+  margin: 0 0 10px;
+  font-weight: 700;
+  color: var(--ui-text);
+}
+
+.ui-not-found h2 {
+  margin: 0 0 10px;
+  font-weight: 700;
+  color: var(--ui-text);
+}
+
+.ui-not-found p {
+  margin: 0 0 22px;
+  color: var(--ui-muted);
+}
+
+.ui-not-found .ui-btn-primary {
+  min-width: 280px;
+}
+
+@media (max-width: 767px) {
+  .ui-not-found {
+    padding: 40px 0 56px;
+  }
+
+  .ui-not-found h1 {
+    font-size: 44px;
+  }
+
+  .ui-not-found .ui-btn-primary {
+    width: 100%;
+    min-width: 0;
+  }
+}

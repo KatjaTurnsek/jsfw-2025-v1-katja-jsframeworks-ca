@@ -46,7 +46,8 @@ export default function Layout() {
                 <span className="ui-cart-icon" aria-hidden="true">
                   <img src="/assets/images/cart-icon.svg" alt="" />
                 </span>
-                <span className="ui-cart-count">{cartCount}</span>
+
+                {cartCount > 0 ? <span className="ui-cart-count">{cartCount}</span> : null}
               </NavLink>
             </div>
           </nav>

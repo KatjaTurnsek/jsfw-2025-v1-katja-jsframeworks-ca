@@ -6,12 +6,16 @@ import {
   setCartItemQuantity,
 } from '../store/cart-store'
 import { showToast } from '../ui/ui-toast/ui-toast-store'
+import { formatPrice } from '../ui/ui-format'
 import '../ui/ui-cart.css'
 
 export default function CartPage() {
   const navigate = useNavigate()
   const items = getCartItems()
+
+  const subtotal = items.reduce((sum, item) => sum + item.discountedPrice * item.quantity, 0)
   const total = getCartTotal()
+  const itemCount = items.reduce((sum, item) => sum + item.quantity, 0)
 
   function handleDecrease(id: string, current: number) {
     setCartItemQuantity(id, current - 1)
@@ -31,10 +35,13 @@ export default function CartPage() {
 
   if (!items.length) {
     return (
-      <div>
+      <div className="ui-cart-page">
         <h1 className="h3 mb-2">Cart</h1>
         <p className="text-muted">Your cart is empty.</p>
-        <Link className="btn btn-dark" to="/">
+        <Link
+          className="ui-btn-primary d-inline-flex justify-content-center align-items-center"
+          to="/"
+        >
           Back to shop
         </Link>
       </div>
@@ -42,79 +49,92 @@ export default function CartPage() {
   }
 
   return (
-    <div>
-      <h1 className="h3 mb-3">Cart</h1>
+    <div className="ui-cart-page">
+      <Link to="/" className="ui-back-link">
+        ← Back to shop
+      </Link>
 
-      <div className="row g-4">
-        <div className="col-12 col-lg-8">
-          <div className="list-group">
-            {items.map((item) => (
-              <div className="list-group-item" key={item.id}>
-                <div className="d-flex gap-3">
-                  <img
-                    src={item.imageUrl}
-                    alt={item.imageAlt}
-                    className="rounded border ui-cart-thumb"
-                  />
+      <h1 className="h3 mb-1">Cart</h1>
+      <div className="text-muted ui-cart-subtitle">
+        {itemCount} {itemCount === 1 ? 'item' : 'items'}
+      </div>
 
-                  <div className="flex-grow-1">
-                    <div className="d-flex justify-content-between align-items-start gap-2">
-                      <div>
-                        <div className="fw-semibold">{item.title}</div>
-                        <div className="text-muted small">
-                          Price: <span className="fw-semibold">{item.discountedPrice}</span>
-                        </div>
-                      </div>
+      <div className="ui-cart-layout">
+        {/* Left: items */}
+        <div className="ui-cart-list">
+          {items.map((item) => {
+            const hasOldPrice = item.price > item.discountedPrice
+            return (
+              <div className="ui-cart-card" key={item.id}>
+                <img src={item.imageUrl} alt={item.imageAlt} className="ui-cart-thumb" />
 
-                      <button
-                        type="button"
-                        className="btn btn-outline-danger btn-sm"
-                        onClick={() => handleRemove(item.id)}
-                      >
-                        Remove
-                      </button>
-                    </div>
+                <div className="ui-cart-card-body">
+                  <button
+                    type="button"
+                    className="ui-cart-remove"
+                    aria-label="Remove item"
+                    onClick={() => handleRemove(item.id)}
+                  >
+                    ×
+                  </button>
 
-                    <div className="d-flex align-items-center gap-2 mt-2">
-                      <button
-                        type="button"
-                        className="btn btn-outline-dark btn-sm"
-                        onClick={() => handleDecrease(item.id, item.quantity)}
-                      >
-                        −
-                      </button>
+                  <div className="ui-cart-title">{item.title}</div>
 
-                      <span className="px-2">Qty: {item.quantity}</span>
+                  <div className="ui-cart-price">
+                    <span className="ui-cart-price-new">{formatPrice(item.discountedPrice)}</span>
+                    {hasOldPrice ? (
+                      <span className="ui-cart-price-old">{formatPrice(item.price)}</span>
+                    ) : null}
+                  </div>
 
-                      <button
-                        type="button"
-                        className="btn btn-outline-dark btn-sm"
-                        onClick={() => handleIncrease(item.id, item.quantity)}
-                      >
-                        +
-                      </button>
-                    </div>
+                  <div className="ui-cart-qty">
+                    <button
+                      type="button"
+                      className="ui-qty-btn"
+                      onClick={() => handleDecrease(item.id, item.quantity)}
+                      aria-label="Decrease quantity"
+                    >
+                      −
+                    </button>
+
+                    <span className="ui-qty-value">{item.quantity}</span>
+
+                    <button
+                      type="button"
+                      className="ui-qty-btn"
+                      onClick={() => handleIncrease(item.id, item.quantity)}
+                      aria-label="Increase quantity"
+                    >
+                      +
+                    </button>
                   </div>
                 </div>
               </div>
-            ))}
-          </div>
+            )
+          })}
         </div>
 
-        <div className="col-12 col-lg-4">
-          <div className="card">
-            <div className="card-body">
-              <div className="d-flex justify-content-between mb-2">
-                <span className="fw-semibold">Total</span>
-                <span className="fw-semibold">{total}</span>
-              </div>
+        {/* Right: summary */}
+        <aside className="ui-cart-summary">
+          <h2 className="h4 mb-3">Summary</h2>
 
-              <Link className="btn btn-dark w-100 mt-2" to="/checkout-success">
-                Checkout
-              </Link>
-            </div>
+          <div className="ui-summary-row">
+            <span className="fw-semibold">Subtotal:</span>
+            <span className="fw-semibold">{formatPrice(subtotal)}</span>
           </div>
-        </div>
+
+          <div className="ui-summary-row ui-summary-row--total">
+            <span className="fw-semibold">Total:</span>
+            <span className="fw-semibold">{formatPrice(total)}</span>
+          </div>
+
+          <Link
+            className="ui-btn-primary d-inline-flex justify-content-center align-items-center ui-summary-btn"
+            to="/checkout-success"
+          >
+            Checkout
+          </Link>
+        </aside>
       </div>
     </div>
   )

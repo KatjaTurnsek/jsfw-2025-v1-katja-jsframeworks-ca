@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
+import '../ui/ui-contact.css'
 
 interface contactFormValues {
   fullName: string
@@ -65,91 +67,96 @@ export default function ContactPage() {
     setIsSubmitted(!hasErrors)
 
     if (!hasErrors) {
-      // For this assignment we only validate and show success
-      // (no actual API submission required)
       setValues({ fullName: '', subject: '', email: '', message: '' })
     }
   }
 
   return (
-    <div className="row justify-content-center">
-      <div className="col-12 col-lg-8">
-        <h1 className="h3 mb-3">Contact</h1>
+    <div className="ui-contact-wrap">
+      <Link className="ui-back-link" to="/">
+        ← Back to shop
+      </Link>
 
-        {isSubmitted ? (
-          <div className="alert alert-success" role="alert">
-            Message sent (demo). Thanks!
-          </div>
-        ) : null}
+      <h1 className="h3 mb-0">Contact</h1>
+      <p className="ui-contact-subtitle">Need help choosing a gift? We reply within 24 hours.</p>
 
-        <form onSubmit={handleSubmit} noValidate>
-          <div className="mb-3">
-            <label className="form-label" htmlFor="fullName">
-              Full name
-            </label>
-            <input
-              className={`form-control ${errors.fullName ? 'is-invalid' : ''}`}
-              id="fullName"
-              name="fullName"
-              value={values.fullName}
-              onChange={handleChange}
-              type="text"
-              autoComplete="name"
-            />
-            {errors.fullName ? <div className="invalid-feedback">{errors.fullName}</div> : null}
-          </div>
+      {isSubmitted ? (
+        <div className="alert alert-success" role="alert">
+          Message sent (demo). Thanks!
+        </div>
+      ) : null}
 
-          <div className="mb-3">
-            <label className="form-label" htmlFor="subject">
-              Subject
-            </label>
-            <input
-              className={`form-control ${errors.subject ? 'is-invalid' : ''}`}
-              id="subject"
-              name="subject"
-              value={values.subject}
-              onChange={handleChange}
-              type="text"
-            />
-            {errors.subject ? <div className="invalid-feedback">{errors.subject}</div> : null}
-          </div>
+      <h2 className="h5 ui-contact-section-title">Send us a message</h2>
 
-          <div className="mb-3">
-            <label className="form-label" htmlFor="email">
-              Email
-            </label>
-            <input
-              className={`form-control ${errors.email ? 'is-invalid' : ''}`}
-              id="email"
-              name="email"
-              value={values.email}
-              onChange={handleChange}
-              type="email"
-              autoComplete="email"
-            />
-            {errors.email ? <div className="invalid-feedback">{errors.email}</div> : null}
-          </div>
+      <form className="ui-form" onSubmit={handleSubmit} noValidate>
+        <div className="mb-3">
+          <label className="form-label" htmlFor="fullName">
+            Full name
+          </label>
+          <input
+            className={`form-control ${errors.fullName ? 'is-invalid' : ''}`}
+            id="fullName"
+            name="fullName"
+            value={values.fullName}
+            onChange={handleChange}
+            type="text"
+            autoComplete="name"
+          />
+          {errors.fullName ? <div className="invalid-feedback">{errors.fullName}</div> : null}
+        </div>
 
-          <div className="mb-3">
-            <label className="form-label" htmlFor="message">
-              Message
-            </label>
-            <textarea
-              className={`form-control ${errors.message ? 'is-invalid' : ''}`}
-              id="message"
-              name="message"
-              value={values.message}
-              onChange={handleChange}
-              rows={6}
-            />
-            {errors.message ? <div className="invalid-feedback">{errors.message}</div> : null}
-          </div>
+        <div className="mb-3">
+          <label className="form-label" htmlFor="subject">
+            Subject
+          </label>
+          <input
+            className={`form-control ${errors.subject ? 'is-invalid' : ''}`}
+            id="subject"
+            name="subject"
+            value={values.subject}
+            onChange={handleChange}
+            type="text"
+          />
+          {errors.subject ? <div className="invalid-feedback">{errors.subject}</div> : null}
+        </div>
 
-          <button className="btn btn-dark" type="submit">
-            Send
+        <div className="mb-3">
+          <label className="form-label" htmlFor="email">
+            Email
+          </label>
+          <input
+            className={`form-control ${errors.email ? 'is-invalid' : ''}`}
+            id="email"
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+            type="email"
+            autoComplete="email"
+          />
+          {errors.email ? <div className="invalid-feedback">{errors.email}</div> : null}
+        </div>
+
+        <div className="mb-3">
+          <label className="form-label" htmlFor="message">
+            Message
+          </label>
+          <textarea
+            className={`form-control ${errors.message ? 'is-invalid' : ''}`}
+            id="message"
+            name="message"
+            value={values.message}
+            onChange={handleChange}
+            rows={6}
+          />
+          {errors.message ? <div className="invalid-feedback">{errors.message}</div> : null}
+        </div>
+
+        <div className="ui-contact-actions">
+          <button className="ui-btn-primary" type="submit">
+            Submit
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   )
 }

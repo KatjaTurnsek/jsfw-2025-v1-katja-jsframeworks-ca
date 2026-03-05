@@ -152,10 +152,7 @@ export default function HomePage() {
                       </div>
                     </div>
 
-                    <Link
-                      className="btn ui-btn-accent text-white w-100 mt-3 ui-btn-bottom"
-                      to={`/product/${item.id}`}
-                    >
+                    <Link className="ui-btn-accent ui-btn-bottom" to={`/product/${item.id}`}>
                       View
                     </Link>
                   </div>

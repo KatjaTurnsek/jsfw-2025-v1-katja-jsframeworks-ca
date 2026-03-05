@@ -1,0 +1,174 @@
+.ui-product-detail {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .ui-product-detail {
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: start;
+    gap: 34px;
+  }
+}
+
+/* Back link */
+.ui-back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--ui-muted);
+  text-decoration: none;
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.ui-back-link:hover {
+  color: var(--ui-text);
+  text-decoration: underline;
+}
+
+/* Image */
+.ui-product-media {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(146, 77, 191, 0.12);
+  border: 1px solid var(--ui-border);
+}
+
+.ui-product-media img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.ui-product-discount {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: var(--ui-accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 13px;
+  padding: 6px 10px;
+  border-radius: 2px;
+}
+
+/* Right column text */
+.ui-product-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--ui-text);
+}
+
+.ui-product-meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: var(--ui-text);
+  font-size: 14px;
+}
+
+.ui-stars {
+  color: var(--ui-accent);
+  letter-spacing: 1px;
+}
+
+.ui-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 10px 0 12px;
+}
+
+.ui-tag {
+  font-size: 12px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(146, 77, 191, 0.12);
+  color: var(--ui-text);
+  border: 1px solid rgba(146, 77, 191, 0.16);
+}
+
+.ui-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin: 10px 0 16px;
+}
+
+.ui-price-new {
+  color: var(--ui-accent);
+  font-weight: 700;
+}
+
+.ui-price-old {
+  color: var(--ui-muted);
+  text-decoration: line-through;
+}
+
+.ui-product-desc {
+  color: var(--ui-text);
+  line-height: 1.6;
+  margin: 0 0 18px;
+}
+
+.ui-product-actions .ui-btn-primary {
+  width: 100%;
+}
+
+/* Divider line between product + reviews */
+.ui-section-divider {
+  border-top: 1px solid var(--ui-border);
+  margin: 28px 0;
+}
+
+/* Reviews */
+.ui-reviews-title {
+  margin: 0 0 16px;
+  font-weight: 700;
+  color: var(--ui-text);
+}
+
+.ui-reviews-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 768px) {
+  .ui-reviews-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.ui-review-card {
+  border: 1px solid var(--ui-border);
+  border-radius: 8px;
+  background: #fff;
+  padding: 16px;
+  box-shadow: 0 8px 16px rgba(17, 24, 39, 0.06);
+}
+
+.ui-review-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.ui-review-name {
+  font-weight: 700;
+  color: var(--ui-text);
+}
+
+.ui-review-body {
+  margin: 0;
+  color: var(--ui-text);
+  line-height: 1.6;
+}
