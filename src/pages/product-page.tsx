@@ -6,6 +6,7 @@ import { getProductById } from '../services/online-shop-api'
 import { addToCart } from '../store/cart-store'
 import { showToast } from '../ui/ui-toast/ui-toast-store'
 import type { product } from '../types/product'
+import { formatPrice } from '../ui/ui-format'
 import '../ui/ui-product-detail.css'
 
 function clampRating(value: number) {
@@ -46,6 +47,7 @@ export default function ProductPage() {
   }, [id])
 
   const isDiscounted = item ? item.discountedPrice < item.price : false
+
   const discountPercent = useMemo(() => {
     if (!item) return 0
     if (item.discountedPrice >= item.price) return 0
@@ -103,11 +105,11 @@ export default function ProductPage() {
           <div className="ui-price-row">
             {isDiscounted ? (
               <>
-                <span className="ui-price-new">{item.discountedPrice}</span>
-                <span className="ui-price-old">{item.price}</span>
+                <span className="ui-price-new">{formatPrice(item.discountedPrice)}</span>
+                <span className="ui-price-old">{formatPrice(item.price)}</span>
               </>
             ) : (
-              <span className="ui-price-new">{item.price}</span>
+              <span className="ui-price-new">{formatPrice(item.price)}</span>
             )}
           </div>
 

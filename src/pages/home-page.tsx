@@ -4,15 +4,23 @@ import ErrorState from '../components/error-state'
 import LoadingState from '../components/loading-state'
 import { getProducts } from '../services/online-shop-api'
 import type { product } from '../types/product'
+import { formatPrice } from '../ui/ui-format'
 import '../ui/ui-product-card.css'
 import '../ui/ui-search.css'
 import '../ui/ui-home.css'
+
+type SortValue = 'featured' | 'price-asc' | 'price-desc' | 'rating-desc' | 'title-asc'
+
+function getShownPrice(item: product) {
+  return item.discountedPrice < item.price ? item.discountedPrice : item.price
+}
 
 export default function HomePage() {
   const [products, setProducts] = useState<product[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [errorMessage, setErrorMessage] = useState<string | null>(null)
   const [searchValue, setSearchValue] = useState('')
+  const [sortValue, setSortValue] = useState<SortValue>('featured')
 
   async function loadProducts() {
     setIsLoading(true)
@@ -39,6 +47,24 @@ export default function HomePage() {
 
     return products.filter((item) => item.title.toLowerCase().includes(q)).slice(0, 8)
   }, [products, searchValue])
+
+  const sortedProducts = useMemo(() => {
+    const list = [...products]
+
+    switch (sortValue) {
+      case 'price-asc':
+        return list.sort((a, b) => getShownPrice(a) - getShownPrice(b))
+      case 'price-desc':
+        return list.sort((a, b) => getShownPrice(b) - getShownPrice(a))
+      case 'rating-desc':
+        return list.sort((a, b) => (b.rating ?? 0) - (a.rating ?? 0))
+      case 'title-asc':
+        return list.sort((a, b) => a.title.localeCompare(b.title))
+      case 'featured':
+      default:
+        return list
+    }
+  }, [products, sortValue])
 
   return (
     <div>
@@ -68,10 +94,9 @@ export default function HomePage() {
             </button>
 
             {matches.length ? (
-              <div className="ui-search-dropdown">
+              <div className="ui-search-dropdown" aria-label="Search results">
                 {matches.map((item) => {
-                  const shownPrice =
-                    item.discountedPrice < item.price ? item.discountedPrice : item.price
+                  const shownPrice = getShownPrice(item)
 
                   return (
                     <Link
@@ -86,7 +111,7 @@ export default function HomePage() {
 
                       <span className="ui-search-text">
                         <span className="ui-search-title">{item.title}</span>
-                        <span className="ui-search-price">{shownPrice}</span>
+                        <span className="ui-search-price">{formatPrice(shownPrice)}</span>
                       </span>
 
                       <span className="ui-search-arrow" aria-hidden="true">
@@ -99,6 +124,25 @@ export default function HomePage() {
             ) : null}
           </div>
         </div>
+
+        <div className="ui-home-sort-wrap">
+          <label className="form-label visually-hidden" htmlFor="sort">
+            Sort products
+          </label>
+
+          <select
+            id="sort"
+            className="ui-sort-select"
+            value={sortValue}
+            onChange={(e) => setSortValue(e.target.value as SortValue)}
+          >
+            <option value="featured">Featured</option>
+            <option value="price-asc">Price: low to high</option>
+            <option value="price-desc">Price: high to low</option>
+            <option value="rating-desc">Rating: high to low</option>
+            <option value="title-asc">Title: A–Z</option>
+          </select>
+        </div>
       </div>
 
       {isLoading ? <LoadingState /> : null}
@@ -106,7 +150,7 @@ export default function HomePage() {
 
       {!isLoading && !errorMessage ? (
         <div className="row g-3">
-          {products.map((item) => {
+          {sortedProducts.map((item) => {
             const isDiscounted = item.discountedPrice < item.price
             const discountPercent = isDiscounted
               ? Math.round(((item.price - item.discountedPrice) / item.price) * 100)
@@ -143,11 +187,13 @@ export default function HomePage() {
                       <div className="ui-price-row">
                         {isDiscounted ? (
                           <>
-                            <span className="ui-price-new">{item.discountedPrice}</span>
-                            <span className="ui-price-old">{item.price}</span>
+                            <span className="ui-price-new">
+                              {formatPrice(item.discountedPrice)}
+                            </span>
+                            <span className="ui-price-old">{formatPrice(item.price)}</span>
                           </>
                         ) : (
-                          <span className="ui-price-new">{item.price}</span>
+                          <span className="ui-price-new">{formatPrice(item.price)}</span>
                         )}
                       </div>
                     </div>

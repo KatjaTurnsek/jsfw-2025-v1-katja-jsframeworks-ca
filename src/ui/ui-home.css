@@ -9,8 +9,21 @@
   .ui-home-header {
     flex-direction: row;
     align-items: flex-start;
-    justify-content: space-between;
     gap: 18px;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .ui-home-title-wrap {
+    flex: 1 1 200px;
+  }
+
+  .ui-home-search-wrap {
+    flex: 0 0 420px;
+  }
+
+  .ui-home-sort-wrap {
+    flex: 0 0 180px;
   }
 }
 
@@ -67,4 +80,22 @@
 .ui-home-search-wrap .input-group {
   overflow: hidden;
   border-radius: 8px;
+}
+
+.ui-home-sort-wrap {
+  min-width: 180px;
+}
+
+.ui-sort-select {
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid var(--ui-text);
+  background: transparent;
+  color: var(--ui-text);
+  padding: 0 12px;
+}
+
+.ui-sort-select:focus {
+  border-color: var(--ui-text);
+  box-shadow: 0 0 0 0.2rem rgba(0, 0, 0, 0.08);
 }
