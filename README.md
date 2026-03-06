@@ -73,4 +73,4 @@ npm run format:check # check formatting
 
 ## Deployment
 
-Deployed with: <Netlify>
+Deployed with: Netlify
