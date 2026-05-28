@@ -66,6 +66,9 @@ export default function HomePage() {
     }
   }, [products, sortValue])
 
+  const hasSearchQuery = Boolean(searchValue.trim())
+  const hasNoSearchResults = hasSearchQuery && !matches.length
+
   return (
     <div>
       <div className="ui-home-header">
@@ -121,6 +124,12 @@ export default function HomePage() {
                   )
                 })}
               </div>
+            ) : null}
+
+            {hasNoSearchResults ? (
+              <p className="ui-search-empty" role="status">
+                No products found. Try a different search term.
+              </p>
             ) : null}
           </div>
         </div>

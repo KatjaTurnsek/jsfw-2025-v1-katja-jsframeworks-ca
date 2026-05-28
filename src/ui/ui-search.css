@@ -49,7 +49,8 @@
 }
 
 /* Dropdown */
-.ui-search-dropdown {
+.ui-search-dropdown,
+.ui-search-empty {
   position: absolute;
   top: calc(100% + 12px);
   left: 0;
@@ -58,8 +59,20 @@
   border: 1px solid var(--ui-text);
   border-radius: 10px;
   box-shadow: 0 10px 30px rgba(17, 24, 39, 0.18);
-  padding: 14px;
   z-index: 20;
+}
+
+/* Empty search state */
+.ui-search-empty {
+  margin: 0;
+  padding: 14px 16px;
+  color: var(--ui-muted);
+  font-size: 0.95rem;
+}
+
+/* Result dropdown spacing */
+.ui-search-dropdown {
+  padding: 14px;
 }
 
 /* Result item */
