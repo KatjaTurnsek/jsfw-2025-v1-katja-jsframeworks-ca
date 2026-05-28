@@ -1,45 +1,54 @@
-# JS Frameworks Course Assignment – Online Shop
+# Little Joy Shop
 
-Single-page online shop built with **Vite + React + TypeScript** and styled with **Bootstrap (CSS-only)** plus small custom `ui-` classes.
+![Little Joy Shop homepage preview](./public/assets/images/little-joy-shop-preview.webp)
+
+Little Joy Shop is a single-page online shop built with **Vite, React, TypeScript**, and **Bootstrap 5** with small custom `ui-` classes. The application lets users browse products, search, view product details, manage a cart, and complete a checkout flow.
 
 ## Live demo
 
-Add your deployed URL here:
-
 - Live site: [Little Joy Shop](https://littlejoy-shop.netlify.app)
 
-## Repo
+## Repository
 
-- GitHub repo: https://github.com/NoroffFEU/jsfw-2025-v1-katja-jsframeworks-ca
+- GitHub repo: https://github.com/KatjaTurnsek/jsfw-2025-v1-katja-jsframeworks-ca
 
 ## Tech stack
 
 - Vite + React
-- TypeScript (strict)
-- React Router (SPA routing)
-- Bootstrap 5 (CSS-only)
-- Prettier (formatting)
+- TypeScript
+- React Router
+- Bootstrap 5
+- Custom CSS with `ui-` prefixed classes
+- Prettier
+- ESLint
 
-## Features (matches the brief)
+## Features
 
-- **Home page product grid** (fetches products from API)
-- **Search** with dropdown results that link to product pages
-- **Product details page** (`/product/:id`) with price, discount display, tags and reviews (when available)
-- **Cart**
+- Home page product grid fetching products from the Noroff API
+- Product search with dropdown results
+- Product sorting by price, rating, and title
+- Product details page with price, discount, tags, rating, and reviews
+- Cart functionality:
   - Add to cart
   - Cart badge count in header
-  - Update quantity (+ / −)
+  - Update quantity
   - Remove item
   - Total cost
-  - **Toast notifications** for “Added to cart” and “Removed from cart”
-- **Checkout success** page clears the cart
-- **Contact form** with validation:
-  - Full name min 3
-  - Subject min 3
-  - Email valid format
-  - Message min 10
-- Loading + error states on API calls
-- Responsive layout (mobile → desktop)
+- Toast notifications for cart actions
+- Checkout success page that clears the cart
+- Contact form with validation
+- Loading and error states for API calls
+- Responsive layout for mobile, tablet, and desktop
+
+## Portfolio 2 Improvements
+
+For Portfolio 2, I reviewed Little Joy Shop as a professional portfolio project and made a focused usability improvement to the product search.
+
+Before the update, searching for a product with no matching result did not give the user clear feedback. This could make the search feel broken or unfinished. I added a no-results message that tells the user when no products were found and suggests trying a different search term.
+
+I also reviewed the search result thumbnail markup so the product title is not repeated unnecessarily for screen readers. This keeps the search results easier to understand while preserving the existing visual design.
+
+**Improvement commit:** https://github.com/KatjaTurnsek/jsfw-2025-v1-katja-jsframeworks-ca/commit/cec4ad9
 
 ## API
 
@@ -48,9 +57,13 @@ This project uses the Noroff Online Shop API:
 - `GET https://v2.api.noroff.dev/online-shop`
 - `GET https://v2.api.noroff.dev/online-shop/:id`
 
-## Getting started (run locally)
+## Getting started
+
+Clone the repository and install dependencies:
 
 ```bash
+git clone https://github.com/KatjaTurnsek/jsfw-2025-v1-katja-jsframeworks-ca.git
+cd jsfw-2025-v1-katja-jsframeworks-ca
 npm install
 npm run dev
 ```
@@ -66,11 +79,18 @@ npm run format       # format with prettier
 npm run format:check # check formatting
 ```
 
-## Notes
+## Project notes
 
-- Custom styling uses `ui-` prefixed classes (small additions on top of Bootstrap).
-- Cart is persisted using `localStorage`.
+- Custom styling uses `ui-` prefixed classes on top of Bootstrap.
+- Cart state is persisted with `localStorage`.
+- SPA redirects are handled for Netlify deployment.
 
 ## Deployment
 
-Deployed with: Netlify
+Deployed with Netlify.
+
+## Author
+
+**Katja Turnšek**  
+Front-End Development Student  
+[Portfolio Website](https://katjaturnsek.github.io/portfolio/)
